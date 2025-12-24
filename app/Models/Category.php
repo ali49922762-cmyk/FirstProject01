@@ -18,4 +18,6 @@ class Category extends Model implements HasMedia
     public function Hotel(){
         return $this->hasMany(Hotel::class);
     }
+
+    
 }

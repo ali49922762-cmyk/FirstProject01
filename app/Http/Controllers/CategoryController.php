@@ -6,17 +6,42 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    // public function index(){
+    //     $category = Category::get();
+    //     return response()->json($category);  
+    // }
+
+    // public function show(Category $id){
+    //     return response()->json($id);
+    // }
+
     public function index(){
-        $category = Category::get();
-        return response()->json($category);  
+        $category = Category::all();
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'succesfull',
+            'data'=>CategoryResource::collection($category)
+        ]);
     }
 
-    public function show(Category $id){
-        return response()->json($id);
+
+    public function show($id){
+        $category=Category::findOrFail($id);
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'succesfull',
+            'data'=>new CategoryResource($category)
+        ]);
     }
+
+
 
     public function store(Request $request)
     {

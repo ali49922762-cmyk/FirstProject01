@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Hotel extends Model implements HasMedia
 {
@@ -20,5 +20,10 @@ class Hotel extends Model implements HasMedia
 
     public function Category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('cover')->singleFile(); 
     }
 }
